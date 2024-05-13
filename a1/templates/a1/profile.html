@@ -1,0 +1,152 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: sticky; /* Make the header sticky */
+            top: 0; /* Stick to the top of the viewport */
+            z-index: 1000; /* Ensure the header is above other content */
+        }
+
+        header img {
+            height: 50px; /* Adjust height as needed */
+            margin-left: 20px; /* Add margin to separate logo from text */
+        }
+
+        nav {
+            text-align: center;
+            margin-top: 20px;
+            position: sticky; /* Make the navigation bar sticky */
+            top: 170px; /* Stick to the top of the viewport, below the header */
+            z-index: 1000; /* Ensure the navigation bar is above other content */
+            background-color: #fff; /* Add a background color */
+            padding: 10px 0; /* Add padding for better visibility */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a shadow for depth */
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #eee;
+        }
+
+        .animated {
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Styling for content divs */
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .content {
+            width: calc(50% - 20px); /* Adjusted width */
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .content p {
+            margin-bottom: 15px;
+        }
+
+        /* Styling for image divs */
+        .image-container {
+            width: calc(50% - 20px); /* Adjusted width */
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container img {
+            width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{%static 'images/login.png'%}" alt="Logo">
+        <h1>Welcome to Your Profile</h1>
+    </header>
+    <nav>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'addpost' %}">Add Post</a>
+        <a href="{% url 'showpost' %}">Show Posts</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'mypost' %}">My Posts</a>
+        {% else %}
+        <a href="{% url 'register' %}">Register</a>
+        <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+    <div class="animated">
+        <div class="content-container">
+            <div class="content">
+                <h2>Hello, {{ user }}</h2>
+                <p>Welcome to your profile page! Here, you can manage your account settings, view your posts, and interact with other users.</p>
+                <p>Using a blog application offers numerous advantages. You can express yourself, connect with others, grow your online presence, learn and improve, and even monetize your passion.</p>
+                <p>Start exploring the features and unleash your creativity!</p>
+            </div>
+            <div class="image-container">
+                <!-- Add your image here -->
+                <img src="{%static 'images/im1.jpg'%}" alt="Image">
+            </div>
+        </div>
+        <div class="content-container">
+            <div class="image-container">
+                <!-- Add your image here -->
+                <img src="{%static 'images/im2.jpg'%}" alt="Image">
+            </div>
+            <div class="content">
+                <h2>Advantages of a Blog Application</h2>
+                <p>1. Express yourself and share your thoughts with the world.</p>
+                <p>2. Connect with like-minded individuals and build a community.</p>
+                <p>3. Enhance your online presence and showcase your expertise.</p>
+                <p>4. Learn and improve by documenting your experiences and insights.</p>
+                <p>5. Monetize your passion through sponsored content, affiliate marketing, or selling products/services.</p>
+                <p>With a blog application, the possibilities are endless. Start creating your own blog today!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

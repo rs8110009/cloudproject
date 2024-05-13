@@ -1,0 +1,169 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: sticky; /* Make the header sticky */
+            top: 0; /* Stick to the top of the viewport */
+            z-index: 1000; /* Ensure the header is above other content */
+        }
+
+        header img {
+            height: 50px; /* Adjust height as needed */
+            margin-left: 20px; /* Add margin to separate logo from text */
+        }
+
+        nav {
+            text-align: center;
+            margin-top: 20px;
+            position: sticky; /* Make the navigation bar sticky */
+            top: 170px; /* Stick to the top of the viewport, below the header */
+            z-index: 1000; /* Ensure the navigation bar is above other content */
+            background-color: #fff; /* Add a background color */
+            padding: 10px 0; /* Add padding for better visibility */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a shadow for depth */
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #eee;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        .animated {
+            animation: fadeInUp 1s ease;
+        }
+
+/* Styling for input fields */
+form input[type="text"],
+        form input[type="email"],
+        form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        form input[type="text"]:focus,
+        form input[type="email"]:focus,
+        form input[type="password"]:focus {
+            border-color: #333;
+        }
+
+        form button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #555;
+        }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{%static 'images/login.png'%}" alt="Logo">
+        <h1>Registeration Page</h1>
+    </header>
+    <nav>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'addpost' %}">Add Post</a>
+        <a href="{% url 'showpost' %}">Show Posts</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'mypost' %}">My Posts</a>
+        {% else %}
+        <a href="{% url 'register' %}">Register</a>
+        <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+    <div class="animated">
+        <h2>Register to Start Blogging</h2>
+        <p>
+            Welcome to our Blog App! Register now to start sharing your thoughts, experiences, and expertise with the world.
+        </p>
+        <p>
+            Whether you're passionate about travel, food, technology, or any other topic, our platform provides you with the tools to create compelling blog posts and engage with a vibrant community of readers.
+        </p>
+        <p>
+            Joining our community is easy. Simply fill out the registration form below and begin your blogging journey today!
+        </p>
+        <form method="POST">
+            {% csrf_token %}
+            {% for i in form %}
+            {{ i.label_tag }} {{ i }} {{ i.errors|striptags }}
+            <br><br>
+            {% endfor %}
+            <button>Register</button>
+        </form>
+    </div>
+</body>
+</html>
